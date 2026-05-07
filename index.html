@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monitoramento Shimeji</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+
+    <h1>🌱 Monitoramento de Shimeji</h1>
+
+    <div class="card">
+      <h2>Temperatura</h2>
+      <p id="temp">-- °C</p>
+    </div>
+
+    <div class="card">
+      <h2>Umidade</h2>
+      <p id="umi">-- %</p>
+    </div>
+
+    <div class="card">
+      <h2>Status</h2>
+      <p id="status">Carregando...</p>
+    </div>
+
+  </div>
+
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
