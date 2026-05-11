@@ -41,16 +41,22 @@
    - Depois "Dados enviados com sucesso"
 ```
 
-### 3️⃣ Dashboard Frontend (2 minutos)
+### 3️⃣ Dashboard Frontend (1 minuto)
 
 ```bash
-1. Abra "index.html" em seu navegador
-2. Procure por "Configuração ThingSpeak"
-3. Preencha:
-   - Channel ID: (o número que você copinou)
-   - Read API Key: (a chave que você copiou)
-4. Clique "Salvar Configuração"
-5. Aguarde 30 segundos e os dados devem aparecer!
+1. Abra "script.js" em um editor
+2. No topo do arquivo, localize:
+   
+   const THINGSPEAK_CHANNEL_ID = '1234567';
+   const THINGSPEAK_API_KEY = 'ABC123XYZ';
+
+3. Substitua pelos valores obtidos:
+   - '1234567' → seu Channel ID
+   - 'ABC123XYZ' → sua Read API Key
+
+4. Salve o arquivo (Ctrl+S)
+5. Abra "index.html" em seu navegador
+6. Aguarde 30 segundos e os dados devem aparecer!
 ```
 
 ### ✅ Checklist Final
@@ -60,8 +66,8 @@
 - [ ] Channel ID e Read API Key obtidos
 - [ ] ESP32_ThingSpeak.ino editado com suas credenciais
 - [ ] Código ESP32 uploadado e rodando
+- [ ] script.js editado com Channel ID e API Key
 - [ ] Dashboard aberto no navegador
-- [ ] Credenciais inseridas no dashboard
 - [ ] Dados aparecem no gráfico
 
 ### 🐛 Verificação Rápida
@@ -69,18 +75,18 @@
 Se não ver dados:
 
 ```
-1. Serial Monitor do ESP32 mostra erro?
-   → Verifique WiFi e credenciais
+1. Você editou script.js com os valores corretos?
+   → Verifique Channel ID e API Key
 
-2. ThingSpeak mostra dados quando acessa?
-   → Dashboard ou API Key estão errados
+2. Serial Monitor do ESP32 mostra erro?
+   → Verifique WiFi e credenciais do ESP32
 
-3. Dashboard conectado mas sem gráfico?
+3. ThingSpeak mostra dados quando acessa?
+   → script.js ou API Key estão errados
+
+4. Dashboard conectado mas sem gráfico?
    → Limpe cache (Ctrl+Shift+Delete)
    → Espere 1 minuto para primeiro dado
-
-4. Status mostra "Desconectado"?
-   → Channel ID ou API Key incorretos
 ```
 
 ### 📚 Documentação Completa

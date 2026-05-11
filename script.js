@@ -1,7 +1,8 @@
-// Configuração do ThingSpeak
-let THINGSPEAK_CHANNEL_ID = localStorage.getItem('channelId') || '';
-let THINGSPEAK_API_KEY = localStorage.getItem('apiKey') || '';
-const THINGSPEAK_URL = (id, key) => `https://api.thingspeak.com/channels/${id}/feeds.json?api_key=${key}&results=20`;
+// ===== CONFIGURAÇÃO THINGSPEAK =====
+// Altere estes valores com suas credenciais do ThingSpeak
+const THINGSPEAK_CHANNEL_ID = '1234567';     // Substitua pelo seu Channel ID
+const THINGSPEAK_API_KEY = 'ABC123XYZ';      // Substitua pela sua Read API Key
+const THINGSPEAK_URL = `https://api.thingspeak.com/channels/${THINGSPEAK_CHANNEL_ID}/feeds.json?api_key=${THINGSPEAK_API_KEY}&results=20`;
 
 // Configuração do histórico
 const MAX_HISTORY = 20;
@@ -14,89 +15,11 @@ let dataHistory = {
 let chart = null;
 let updateInterval = null;
 
-// Carregar configuração salva ao iniciar
+// Inicializar quando o DOM estiver pronto
 window.addEventListener('DOMContentLoaded', () => {
-  loadConfig();
   initChart();
-  setupEventListeners();
-  
-  if (THINGSPEAK_CHANNEL_ID && THINGSPEAK_API_KEY) {
-    startFetching();
-  } else {
-    setConnectionStatus(false);
-    document.getElementById('status').textContent = 'Configure suas credenciais ThingSpeak';
-  }
-});
-
-// Carregar configuração do localStorage
-function loadConfig() {
-  const channelId = localStorage.getItem('channelId');
-  const apiKey = localStorage.getItem('apiKey');
-  
-  if (channelId) {
-    document.getElementById('channelId').value = channelId;
-    THINGSPEAK_CHANNEL_ID = channelId;
-  }
-  if (apiKey) {
-    document.getElementById('apiKey').value = apiKey;
-    THINGSPEAK_API_KEY = apiKey;
-  }
-}
-
-// Setup dos event listeners
-function setupEventListeners() {
-  const saveBtn = document.getElementById('saveConfig');
-  saveBtn.addEventListener('click', saveConfig);
-  
-  // Permitir salvar com Enter
-  document.getElementById('channelId').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') saveConfig();
-  });
-  document.getElementById('apiKey').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') saveConfig();
-  });
-}
-
-// Salvar configuração
-function saveConfig() {
-  const channelId = document.getElementById('channelId').value.trim();
-  const apiKey = document.getElementById('apiKey').value.trim();
-  
-  if (!channelId || !apiKey) {
-    alert('Por favor, preencha Channel ID e API Key');
-    return;
-  }
-  
-  // Salvar no localStorage
-  localStorage.setItem('channelId', channelId);
-  localStorage.setItem('apiKey', apiKey);
-  
-  // Atualizar variáveis globais
-  THINGSPEAK_CHANNEL_ID = channelId;
-  THINGSPEAK_API_KEY = apiKey;
-  
-  // Mostrar mensagem de sucesso
-  const btn = document.getElementById('saveConfig');
-  const originalText = btn.textContent;
-  btn.textContent = '✓ Salvo!';
-  btn.style.background = 'linear-gradient(135deg, #27ae60 0%, #229954 100%)';
-  
-  setTimeout(() => {
-    btn.textContent = originalText;
-    btn.style.background = '';
-  }, 2000);
-  
-  // Limpar histórico anterior
-  dataHistory = {
-    timestamps: [],
-    temperatures: [],
-    humidity: []
-  };
-  document.getElementById('history-list').innerHTML = '<p class="placeholder">Aguardando dados...</p>';
-  
-  // Iniciar busca de dados
   startFetching();
-}
+});
 
 // Iniciar busca periódica de dados
 function startFetching() {
