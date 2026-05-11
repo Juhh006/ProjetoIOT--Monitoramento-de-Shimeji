@@ -3,34 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Monitoramento Shimeji</title>
-
+  <title>Dashboard - Smart Mushroom</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 </head>
 <body>
+  <div class="main-container">
+    <!-- Painel Esquerdo -->
+    <div class="left-panel">
+      <div class="header">
+        <h1>Smart Mushroom</h1>
+        <p class="subtitle">Sistema de Monitoramento para Shimejis</p>
+      </div>
 
-  <div class="container">
+      <div class="metrics">
+        <div class="metric-card temperature">
+          <div class="metric-icon">🌡️</div>
+          <div class="metric-info">
+            <p class="metric-label">Temperatura</p>
+            <p class="metric-value" id="temp">-- °C</p>
+            <p class="metric-status" id="temp-status">--</p>
+          </div>
+        </div>
 
-    <h1>🌱 Monitoramento de Shimeji</h1>
+        <div class="metric-card humidity">
+          <div class="metric-icon">💧</div>
+          <div class="metric-info">
+            <p class="metric-label">Umidade</p>
+            <p class="metric-value" id="umi">-- %</p>
+            <p class="metric-status" id="umi-status">--</p>
+          </div>
+        </div>
+      </div>
 
-    <div class="card">
-      <h2>Temperatura</h2>
-      <p id="temp">-- °C</p>
+      <div class="status-section">
+        <h3>Status do Sistema</h3>
+        <div class="status-box" id="status-box">
+          <p id="status" class="status-text">Conectando...</p>
+          <p class="status-time" id="last-update">Última atualização: --</p>
+        </div>
+      </div>
+
+      <div class="alert-section">
+        <h3>Alertas</h3>
+        <div class="alerts-container" id="alerts-container">
+          <p class="no-alerts">Nenhum alerta no momento</p>
+        </div>
+      </div>
     </div>
 
-    <div class="card">
-      <h2>Umidade</h2>
-      <p id="umi">-- %</p>
-    </div>
+    <!-- Painel Direito -->
+    <div class="right-panel">
+      <div class="config-section">
+        <h3>Configuração ThingSpeak</h3>
+        <div class="config-form">
+          <div class="config-field">
+            <label for="channelId">Channel ID:</label>
+            <input type="text" id="channelId" placeholder="Ex: 1234567" />
+          </div>
+          <div class="config-field">
+            <label for="apiKey">Read API Key:</label>
+            <input type="text" id="apiKey" placeholder="Ex: ABC123XYZ" />
+          </div>
+          <button id="saveConfig" class="btn-save">Salvar Configuração</button>
+          <p class="config-help">Obtenha essas informações na aba "API Keys" do seu canal ThingSpeak</p>
+        </div>
+      </div>
 
-    <div class="card">
-      <h2>Status</h2>
-      <p id="status">Carregando...</p>
-    </div>
+      <div class="chart-container">
+        <h2>Visualização de Dados</h2>
+        <canvas id="dataChart"></canvas>
+      </div>
 
+      <div class="history-section">
+        <h3>Histórico Recente</h3>
+        <div class="history-list" id="history-list">
+          <p class="placeholder">Aguardando dados...</p>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <p class="info-text">Desenvolvido para o projeto de monitoramento de cultivo de Shimeji</p>
+        <p class="status-indicator">
+          <span id="connection-status" class="indicator offline">● Desconectado</span>
+        </p>
+      </div>
+    </div>
   </div>
 
-  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
